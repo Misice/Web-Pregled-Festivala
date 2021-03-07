@@ -1,0 +1,94 @@
+﻿@page
+@model Neo4J_Projekat.Pages.DrzavaModel
+@{
+    ViewData["Title"] = "Drzava";
+}
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <img src=" @Model.drzava.slika" />
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col ">
+            <b>Ime Drzave:</b>
+            <p> @Model.drzava.ime</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <b> Glavni Grad:</b>
+            <p> @Model.drzava.glavniGrad</p>
+        </div>
+        <div class="col">
+            <b> Valuta je:</b>
+            <p> @Model.drzava.valuta</p>
+        </div>
+        <div class="col">
+            <b>Vremenska Zona:</b>
+            <p> @Model.drzava.vremenskaZona</p>
+        </div>
+        <div class="col">
+            <b> Ukupna povrsina je:</b>
+            <p> @Model.drzava.povrsina</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <b> Opis:</b>
+            <p> @Model.drzava.opis</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <b>Gradovi u ovoj drzavi su:</b>
+    </div>
+
+    <div class="row">
+        @if (Model.gradovi != null)
+        {
+            int broj = 0;
+            @foreach (var grad in Model.gradovi)
+            {
+
+
+                @if (broj == 3)
+                {
+
+                @:</div><div class="row">
+                    broj = 0;
+
+                }
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col" style="text-align:center;">
+                                <b> @grad.ime</b>
+                            </div>
+                            <form method="post" class="form-inline float-right">
+                                <input name="ime" value="@grad.ime" hidden="hidden" />
+                                <button asp-page-handler="Grad" class="btn-info btn">Detaljnije</button>
+                            </form>
+                        </div>
+                        <a class="card-footer alert-success text-center">
+                            <b> Kliknuti na detaljnije za prikaz svih festivala u gradu</b>
+                        </a>
+                    </div>
+                </div>
+
+                broj++;
+            }
+        }
+
+
+    </div>
+
+
+
+
+</div>

@@ -1,0 +1,73 @@
+﻿@page
+@model Neo4J_Projekat.Pages.ListaFestivalaModel
+@{
+    ViewData["Title"] = "Festivali";
+}
+<div class="container">
+    <div class="row justify-content-center ">
+        <h2>Svi Festivali:</h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form method="post" class="form-inline float-right">
+                <input class="form-control" name="naziv" style="margin-right:5vh;" placeholder="Unesite Naziv Festivala...">
+
+                <button asp-page-handler="PronadjiJedan" class="btn btn-info ">Prikazi</button>
+
+                <button asp-page-handler="VratiSve" class="btn btn-secondary" style="margin-left:2vh;">Vrati Sve Festivale</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div class="row ">
+        @if (Model.Festivali != null)
+        {
+            int broj = 0;
+            @foreach (var festival in Model.Festivali)
+            {
+                @if (broj == 3)
+                {
+
+                @:</div><div class="row">
+                    broj = 0;
+
+                }
+
+                <div class="col">
+                    <div class="card" asp-page="/Index">
+                        <div class="card-body align-content-center">
+                            <div class="col" style="text-align:center;">
+                                <b> @festival.naziv</b>
+                            </div>
+                            <form method="post" class="form-inline float-right">
+                                <input name="naziv" value="@festival.naziv" hidden="hidden" />
+                                <button asp-page-handler="Festival" class="btn-info btn">Detaljnije</button>
+                            </form>
+
+                        </div>
+
+                        <a class="card-footer alert-success text-center">
+                            <b> Kliknuti ovde za vise informacija</b>
+                        </a>
+
+                    </div>
+
+                </div>
+                broj++;
+            }
+        }
+        else
+        {
+            <div class="col text-center" style="margin-top:20vh;">
+                <h1>NE POSTOJI POTRAZEN FESTIVAl</h1>
+            </div>
+
+        }
+
+
+    </div>
+
+</div>

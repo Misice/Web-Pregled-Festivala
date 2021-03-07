@@ -1,0 +1,110 @@
+﻿@page
+@model Neo4J_Projekat.Pages.CRUDModel
+@{
+    ViewData["Title"] = "CRUD OPERACIJE";
+}
+<div class="container">
+
+    <div class="row justify-content-center" style="margin-top:5vh; margin-bottom:5vh;">
+        <h2>OSNOVNE CRUD OPERACIJE NAD PODACIMA(Muzicarima): </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <b>Dodajte Muzicara U Nekom Bendu: </b>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form class="Form" method="post">
+                <div class="form-group">
+                    <label>Naziv Benda: </label>
+                    <input type="text" name="NazivBenda" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Ime Muzicara:</label>
+                    <input type="text" name="NazivMuzicara" class="form-control" required>
+                </div>
+
+                <button asp-page-handler="SubmitDodavanje" type="submit" class="btn btn-info">Submit</button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="alert alert-success" role="alert" style="@(Model.sakrivenoDodavanje ? "display:block" : "display:none")">
+            <strong>Uspesno ste dodali Muzicara u bazu!</strong>
+        </div>
+        <div class="alert alert-danger" role="alert" style="@(Model.sakrivenoDodavanjeGreska ? "display:block" : "display:none")">
+            <strong>NEUSPESNO - Pogledajte da li ste uneli validne informacije!</strong>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" style="margin-top:5vh;">
+        <b>Obrisite Muzicara Iz Nekog Benda: </b>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form class="Form" method="post">
+                <div class="form-group">
+                    <label>Naziv Benda Gde Se Nalazi Muzicar: </label>
+                    <input type="text" name="NazivBenda" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Ime Muzicara Koji Se Brise:</label>
+                    <input type="text" name="NazivMuzicara" class="form-control" required>
+                </div>
+
+                <button asp-page-handler="SubmitBrisanje" type="submit" class="btn btn-info">Submit</button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="alert alert-success" role="alert" style="@(Model.sakrivenoBrisanje ? "display:block" : "display:none")">
+            <strong>Uspesno ste Obrisali Muzicara iz bazu!</strong>
+        </div>
+        <div class="alert alert-danger" role="alert" style="@(Model.sakrivenoBrisanjeGreska ? "display:block" : "display:none")">
+            <strong>NEUSPESNO - Pogledajte da li ste uneli validne informacije!</strong>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center" style="margin-top:5vh;">
+        <b>Izmenite Ime Muzicara U Nekom Bendu: </b>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form class="Form" method="post">
+                <div class="form-group">
+                    <label>Naziv Benda Gde Se Nalazi Muzicar: </label>
+                    <input type="text" name="NazivBenda" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Ime Muzicara:</label>
+                    <input type="text" name="NazivMuzicara" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label> Novo Ime Muzicara:</label>
+                    <input type="text" name="NoviNazivMuzicara" class="form-control" required>
+                </div>
+
+                <button asp-page-handler="SubmitIzmena" type="submit" class="btn btn-info">Submit</button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="alert alert-success" role="alert" style="@(Model.sakrivenoMenjanje ? "display:block" : "display:none")">
+            <strong>Uspesno ste Izmenili Ime Muzicara u bazu!</strong>
+        </div>
+        <div class="alert alert-danger" role="alert" style="@(Model.sakrivenoMenjanjeGreska ? "display:block" : "display:none")">
+            <strong>NEUSPESNO - Pogledajte da li ste uneli validne informacije!</strong>
+        </div>
+    </div>
+</div>

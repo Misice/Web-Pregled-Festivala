@@ -1,0 +1,51 @@
+﻿@page
+@model Neo4J_Projekat.Pages.ListaZanrovaModel
+@{
+    ViewData["Title"] = "Zanrovi";
+}
+<div class="container">
+    <div class="row justify-content-center ">
+        <h2>Svi Zanrovi:</h2>
+        <br />
+        <br />
+        <br />
+    </div>
+
+    <div class="row">
+        @if (Model.zanrovi != null)
+        {
+            int broj = 0;
+            @foreach (var zanr in Model.zanrovi)
+            {
+                @if (broj == 3)
+                {
+
+                @:</div><div class="row">
+                    broj = 0;
+
+                }
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col" style="text-align:center;">
+                                <b> @zanr.naziv</b>
+                            </div>
+                            <form method="post" class="form-inline float-right">
+                                <input name="naziv" value="@zanr.naziv" hidden="hidden" />
+                                <button asp-page-handler="Zanr" class="btn-info btn">Detaljnije</button>
+                            </form>
+                        </div>
+                        <a class="card-footer alert-success text-center">
+                            <b> Kliknuti na detaljnije za prikaz svih bendova u ovom zanru muzike</b>
+                        </a>
+                    </div>
+                </div>
+                broj++;
+            }
+        }
+
+
+    </div>
+
+</div>

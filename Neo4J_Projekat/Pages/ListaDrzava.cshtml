@@ -1,0 +1,73 @@
+﻿@page
+@model Neo4J_Projekat.Pages.ListaDrzavaModel
+@{
+    ViewData["Title"] = "Drzave";
+}
+
+<div class="container">
+    <div class="row justify-content-center ">
+        <h2>Sve Drzave:</h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form method="post" class="form-inline float-right">
+                <input class="form-control" name="ime" style="margin-right:5vh;" placeholder="Unesite Naziv Drzave...">
+
+                <button asp-page-handler="PronadjiJedan" class="btn btn-info ">Prikazi</button>
+
+                <button asp-page-handler="VratiSve" class="btn btn-secondary" style="margin-left:2vh;">Vrati Sve Drzave</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row">
+        @if (Model.Drzave != null)
+        {
+            int broj = 0;
+            @foreach (var drzava in Model.Drzave)
+            {
+                @if (broj == 3)
+                {
+
+                @:</div><div class="row">
+                    broj = 0;
+
+                }
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-img-top">
+                            <img style="" src="@drzava.slika" />
+                        </div>
+                        <div class="card-body">
+                            <div class="col" style="text-align:center;">
+                                <b> @drzava.ime </b>
+                            </div>
+                            <form method="post" class="form-inline float-right">
+                                <input name="ime" value="@drzava.ime" hidden="hidden" />
+                                <button asp-page-handler="Drzava" class="btn-info btn">Detaljnije</button>
+                            </form>
+                        </div>
+                        <a class="card-footer alert-success text-center">
+                            <b> Kliknuti na detaljnije za prikaz svih gradova u drzavi</b>
+                        </a>
+                    </div>
+                </div>
+
+
+
+                broj++;
+
+            }
+        }
+        else
+        {
+            <div class="col text-center" style="margin-top:20vh;">
+                <h1>NE POSTOJI POTRAZENA DRZAVA</h1>
+            </div>
+
+        }
+    </div>
+</div>

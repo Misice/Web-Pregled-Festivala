@@ -1,0 +1,203 @@
+﻿@page
+@model Neo4J_Projekat.Pages.BendModel
+@{
+    ViewData["Title"] = "Bend";
+}
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <img src=" @Model.bend.slika" />
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col ">
+            <b>Naziv Benda:</b>
+            <p> @Model.bend.naziv</p>
+        </div>
+        <div class="col ">
+            <b>Osnovan :</b>
+            <p> @Model.bend.osnovani</p>
+        </div>
+        <div class="col ">
+            <b>Zvanican Sajt :</b>
+            <br />
+            <a href="@Model.bend.sajt" target="_blank" style="color:blue;"> @Model.bend.sajt</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <b> Opis:</b>
+            <p> @Model.bend.opis</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="row justify-content-center">
+                <b>Zanr Benda: </b>
+            </div>
+            <div class="row justify-content-center">
+
+                @if (Model.ZanrBenda != null)
+                {
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col" style="text-align:center;">
+                                <b> @Model.ZanrBenda.naziv</b>
+                            </div>
+                            <form method="post" class="form-inline float-right">
+                                <input name="naziv" value="@Model.ZanrBenda.naziv" hidden="hidden" />
+                                <button asp-page-handler="Zanr" class="btn-info btn">Detaljnije</button>
+                            </form>
+                        </div>
+                        <a class="card-footer alert-success text-center">
+                            <b> Kliknuti na detaljnije za prikaz svih bendova u ovom zanru muzike</b>
+                        </a>
+                    </div>
+
+
+                }
+            </div>
+        </div>
+        <div class="col">
+            <div class="row justify-content-center">
+                <b>Drzava Osnivanja Benda: </b>
+            </div>
+            <div class="row justify-content-center">
+                @if (Model.DrzavaOsnivanja != null)
+                {
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col" style="text-align:center;">
+                                <b> @Model.DrzavaOsnivanja.ime </b>
+                            </div>
+                            <form method="post" class="form-inline float-right">
+                                <input name="ime" value="@Model.DrzavaOsnivanja.ime" hidden="hidden" />
+                                <button asp-page-handler="Drzava" class="btn-info btn">Detaljnije</button>
+                            </form>
+                        </div>
+                        <a class="card-footer alert-success text-center">
+                            <b> Kliknuti na detaljnije za prikaz svih gradova u drzavi</b>
+                        </a>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row justify-content-center" style="margin-top:5vh;">
+        <b>Muzicari ovog benda su:</b>
+    </div>
+
+    <div class="row">
+        @if (Model.Muzicari != null)
+        {
+            int broj = 0;
+            @foreach (var muzicar in Model.Muzicari)
+            {
+                @if (broj == 3)
+                {
+
+                @:</div><div class="row">
+                    broj = 0;
+
+                }
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col" style="text-align:center;">
+                                <b> @muzicar.ime </b>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                broj++;
+            }
+        }
+    </div>
+
+    <div class="row justify-content-center" style="margin-top:5vh;">
+        <h3>Festivali gde svira bend:</h3>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form method="post" class="form-inline float-right">
+                <b style="margin-right:5vh;">Godina Sviranja Benda: </b>
+                <input class="form-control" name="godina" style="margin-right:5vh;" list="datalistOptions" id="exampleDataList" placeholder="Odaberite godinu...">
+                <datalist id="datalistOptions">
+                    @if (Model.GodineOdrzavanja != null)
+                    {
+                        @foreach (var godina in Model.GodineOdrzavanja)
+                        {
+                            <option value="@godina" />
+                        }
+                    }
+                </datalist>
+                <button asp-page-handler="Godina" class=" btn btn-info ">Odaberi</button>
+            </form>
+        </div>
+
+    </div>
+
+    @if (Model.OdabranaGodinaSviranja != null)
+    {
+        <div class="row justify-content-center " style="margin-top:5vh;">
+            <h3>Sviraju @Model.OdabranaGodinaSviranja god na sledecim Festivalima:</h3>
+        </div>
+
+    }
+
+    <div class="row ">
+        @if (Model.Festivali != null)
+        {
+            int broj = 0;
+            @foreach (var festival in Model.Festivali)
+            {
+                @if (broj == 3)
+                {
+
+                @:</div><div class="row">
+                    broj = 0;
+
+                }
+
+                <div class="col">
+                    <div class="card" asp-page="/Index">
+                        <div class="card-body align-content-center">
+                            <div class="col" style="text-align:center;">
+                                <b> @festival.naziv</b>
+                            </div>
+                            <form method="post" class="form-inline float-right">
+                                <input name="naziv" value="@festival.naziv" hidden="hidden" />
+                                <button asp-page-handler="Festival" class="btn-info btn">Detaljnije</button>
+                            </form>
+
+                        </div>
+
+                        <a class="card-footer alert-success text-center">
+                            <b> Kliknuti ovde za vise informacija</b>
+                        </a>
+
+                    </div>
+
+                </div>
+                broj++;
+            }
+        }
+
+
+    </div>
+
+
+</div>

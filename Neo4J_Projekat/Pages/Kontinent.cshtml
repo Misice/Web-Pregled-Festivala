@@ -1,0 +1,94 @@
+﻿@page
+@model Neo4J_Projekat.Pages.KontinentModel
+@{
+    ViewData["Title"] = "Kontinent";
+}
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <img src=" @Model.kontinent.slika" />
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col ">
+            <b>Ime Kontinenta:</b>
+            <p> @Model.kontinent.ime</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <b>Ukupan Broj Drzava:</b>
+            <p> @Model.kontinent.brojDrzava</p>
+        </div>
+        <div class="col">
+            <b> Populacija:</b>
+            <p> @Model.kontinent.populacija</p>
+        </div>
+        <div class="col">
+            <b> Povrsina:</b>
+            <p> @Model.kontinent.povrsina</p>
+        </div>
+        <div class="col">
+            <b> Vremenske Zone:</b>
+            <p> @Model.kontinent.vremenskeZone</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <b> Opis:</b>
+            <p> @Model.kontinent.opis</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <b>Drzave obog kontinenta su: </b>
+    </div>
+
+    <div class="row">
+        @if (Model.drzave != null)
+        {
+            int broj = 0;
+            @foreach (var drzava in Model.drzave)
+            {
+
+
+                @if (broj == 3)
+                {
+
+                @:</div><div class="row">
+                    broj = 0;
+
+                }
+
+                <div class="col">
+                    <div class="card">
+
+                        <div class="card-img-top">
+                            <img style="" src="@drzava.slika" />
+                        </div>
+                        <div class="card-body">
+                            <div class="col" style="text-align:center;">
+                                <b> @drzava.ime</b>
+                            </div>
+                            <form method="post" class="form-inline float-right">
+                                <input name="ime" value="@drzava.ime" hidden="hidden" />
+                                <button asp-page-handler="Drzava" class="btn-info btn">Detaljnije</button>
+                            </form>
+                        </div>
+                        <a class="card-footer alert-success text-center">
+                            <b> Kliknuti na detaljnije za prikaz svih gradova u drzavi</b>
+                        </a>
+                    </div>
+                </div>
+
+                broj++;
+            }
+        }
+
+    </div>
+
+</div>
